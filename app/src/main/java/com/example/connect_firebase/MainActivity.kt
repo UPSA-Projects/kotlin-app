@@ -1,5 +1,6 @@
 package com.example.connect_firebase
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -50,6 +51,12 @@ class MainActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Si el inicio de sesión es exitoso
                     showToast("Inicio de sesión exitoso")
+
+                    // Puedes crear un Intent para ir a la nueva actividad
+                    val intent = Intent(this, DoorActivity::class.java)
+                    intent.putExtra("email", email) // Puedes agregar información adicional al intent si es necesario
+                    startActivity(intent)
+                    finish() // Cierra la actividad actual si no deseas que el usuario vuelva atrás con el botón de retroceso
                 } else {
                     // Si hay un error en el inicio de sesión
                     showToast("Error al iniciar sesión: ${task.exception?.message}")
