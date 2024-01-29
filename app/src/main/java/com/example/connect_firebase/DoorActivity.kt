@@ -52,10 +52,8 @@ class DoorActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // Get Post object and use the values to update the UI
                 val post = dataSnapshot.getValue<Int>()
-
-                if (post != null) {
-                    toggleDoor(post)
-                }
+                isDoorOpen = post == 1
+                toggleDoor(isDoorOpen)
 
                 // Aquí puedes actualizar tu interfaz de usuario con los datos obtenidos
                 // por ejemplo, actualizar una TextView con post.title
@@ -71,24 +69,33 @@ class DoorActivity : AppCompatActivity() {
         if (groupId != null) {
             database.child(groupId).addValueEventListener(postListener)
         }
+
+        // Toggle Door Manually
+        findViewById<Button>(R.id.buttonToggle).setOnClickListener {
+            isDoorOpen = !isDoorOpen
+            if (groupId != null) {
+                database.child(groupId).setValue(if (isDoorOpen) 1 else 0)
+            }
+        }
+
     }
 
-    fun toggleDoor(isOpen : Int) {
+    fun toggleDoor(isDoorOpenT : Boolean) {
 
-        isDoorOpen = isOpen == 1
+//        isDoorOpen = isOpen == 1
 
         // Cambiar el estado de la puerta
 //        isDoorOpen = !isDoorOpen
 
         // Actualizar la imagen de la puerta
         val doorImage = findViewById<ImageView>(R.id.imageViewDoor)
-        doorImage.setImageResource(if (isDoorOpen) R.drawable.door_open else R.drawable.door_close)
+        doorImage.setImageResource(if (isDoorOpenT) R.drawable.door_open else R.drawable.door_close)
 
         // Actualizar el texto y color del botón
         val toggleButton = findViewById<Button>(R.id.buttonToggle)
-        toggleButton.text = if (isDoorOpen) "Cerrar Puerta" else "Abrir Puerta"
+        toggleButton.text = if (isDoorOpenT) "Cerrar Puerta" else "Abrir Puerta"
         toggleButton.backgroundTintList = ColorStateList.valueOf(
-            ContextCompat.getColor(this, if (isDoorOpen) R.color.doorOpen else R.color.doorClosed)
+            ContextCompat.getColor(this, if (isDoorOpenT) R.color.doorOpen else R.color.doorClosed)
         )
     }
 }
