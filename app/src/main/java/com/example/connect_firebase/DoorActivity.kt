@@ -1,5 +1,6 @@
 package com.example.connect_firebase
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
@@ -45,7 +46,6 @@ class DoorActivity : AppCompatActivity() {
 
         // Inicializar Firebase Realtime Database
         database = Firebase.database.reference
-//        database.child("kDkvYHedDoPjuYp6AiMx").setValue(1)
 
         // Crear el listener
         val postListener = object : ValueEventListener {
@@ -54,9 +54,6 @@ class DoorActivity : AppCompatActivity() {
                 val post = dataSnapshot.getValue<Int>()
                 isDoorOpen = post == 1
                 toggleDoor(isDoorOpen)
-
-                // Aquí puedes actualizar tu interfaz de usuario con los datos obtenidos
-                // por ejemplo, actualizar una TextView con post.title
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -78,15 +75,18 @@ class DoorActivity : AppCompatActivity() {
             }
         }
 
+        findViewById<Button>(R.id.buttonQr).setOnClickListener {
+            // Puedes crear un Intent para ir a la nueva actividad
+            val intent = Intent(this@DoorActivity, QRScannerActivity::class.java)
+            intent.putExtra("email", email)
+            intent.putExtra("groupId", groupId)
+            startActivity(intent)
+//            finish()
+        }
+
     }
 
     fun toggleDoor(isDoorOpenT : Boolean) {
-
-//        isDoorOpen = isOpen == 1
-
-        // Cambiar el estado de la puerta
-//        isDoorOpen = !isDoorOpen
-
         // Actualizar la imagen de la puerta
         val doorImage = findViewById<ImageView>(R.id.imageViewDoor)
         doorImage.setImageResource(if (isDoorOpenT) R.drawable.door_open else R.drawable.door_close)

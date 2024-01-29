@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 intent.putExtra("email", email)
                 intent.putExtra("groupId", groupId)
                 startActivity(intent)
-                finish() // Cierra la actividad actual si no deseas que el usuario vuelva atrás con el botón de retroceso
+//                finish() // Cierra la actividad actual si no deseas que el usuario vuelva atrás con el botón de retroceso
             } catch (e: Exception) {
                 // Si hay un error en el inicio de sesión
                 showToast("Error al iniciar sesión: $e")
