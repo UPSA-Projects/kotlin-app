@@ -10,6 +10,7 @@ material = "1.11.0"
 constraintlayout = "2.1.4"
 firebase-auth-ktx = "22.3.1"
 firebase-firestore-ktx = "24.10.1"
+firebase-database-ktx = "20.3.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -21,6 +22,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebase-auth-ktx" }
 firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebase-firestore-ktx" }
+firebase-database-ktx = { group = "com.google.firebase", name = "firebase-database-ktx", version.ref = "firebase-database-ktx" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
