@@ -2,9 +2,11 @@ package com.example.connect_firebase
 
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 
@@ -15,6 +17,18 @@ class DoorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_door)
+
+        // Recuperar los datos de la intención
+        val email = intent.getStringExtra("email")
+        val groupId = intent.getStringExtra("groupId")
+
+        // Obtener referencias a los TextViews en el layout
+        val textViewEmail: TextView = findViewById(R.id.textViewEmail)
+        val textViewGroupId: TextView = findViewById(R.id.textViewGroupId)
+
+        // Establecer los valores en los TextViews
+        textViewEmail.text = "Email: $email"
+        textViewGroupId.text = "Group ID: $groupId"
     }
 
     fun toggleDoor(view: View) {
