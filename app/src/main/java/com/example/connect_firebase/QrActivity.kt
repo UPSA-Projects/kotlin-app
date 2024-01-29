@@ -3,11 +3,20 @@ package com.example.connect_firebase
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.widget.Toast
+import com.google.firebase.Firebase
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.database
 import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentResult
 
 class QRScannerActivity : Activity() {
+
+    // Firebase Real Time
+    private lateinit var database: DatabaseReference
+
+    val handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,6 +24,7 @@ class QRScannerActivity : Activity() {
 
         // Iniciar el escaneo al abrir la actividad
         iniciarEscaneo()
+
     }
 
     private fun iniciarEscaneo() {
@@ -29,6 +39,10 @@ class QRScannerActivity : Activity() {
 
     // Método llamado después de que se complete el escaneo
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        // Inicializar Firebase Realtime Database
+        database = Firebase.database.reference
+
         val resultadoEscaneo = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if (resultadoEscaneo != null) {
             if (resultadoEscaneo.contents != null) {
@@ -36,8 +50,19 @@ class QRScannerActivity : Activity() {
                 val contenidoQR = resultadoEscaneo.contents
                 Toast.makeText(this, "Contenido del QR: $contenidoQR", Toast.LENGTH_LONG).show()
 
-                // Puedes procesar el contenido del QR según tus necesidades
-                // Aquí podrías, por ejemplo, enviar el contenido a otra actividad o realizar alguna acción específica
+                // Procesar el contenido del QR según tus necesidades
+                database.child(contenidoQR).get().addOnSuccessListener {
+                    database.child(contenidoQR).setValue(1)
+
+                    handler.postDelayed({
+                        database.child(contenidoQR).setValue(0)
+                    }, 3000)
+
+                }.addOnFailureListener {
+//                    Log.e("firebase", "Error getting data", it)
+                }
+
+
 
 
             } else {
