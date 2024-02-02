@@ -34,10 +34,10 @@
     <!--on below line we are creating edit text for our email-->
     <EditText
         android:id="@+id/idEdtEmail"
-        android:layout_width="match_parent"
+        android:layout_width="341dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/idTVHead"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="80dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="20dp"
         android:hint="Enter your email" />
@@ -59,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/idEdtEmail"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="80dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
         android:hint="Enter your password"
