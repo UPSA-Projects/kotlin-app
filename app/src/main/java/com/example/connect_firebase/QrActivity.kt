@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.database
 import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentResult
+import okhttp3.Request
 
 class QRScannerActivity : Activity() {
 
@@ -53,9 +54,11 @@ class QRScannerActivity : Activity() {
                 // Procesar el contenido del QR según tus necesidades
                 database.child(contenidoQR).get().addOnSuccessListener {
                     database.child(contenidoQR).setValue(1)
+                    Request.Builder().url("https://192.168.0.177/data=1")
 
                     handler.postDelayed({
                         database.child(contenidoQR).setValue(0)
+                        Request.Builder().url("https://192.168.0.177/data=0")
                     }, 3000)
 
                 }.addOnFailureListener {
