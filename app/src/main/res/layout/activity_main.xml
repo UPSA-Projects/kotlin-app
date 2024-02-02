@@ -8,6 +8,15 @@
     tools:context=".MainActivity">
 
     <!--on below line we are creating a new text view-->
+
+    <ImageView
+        android:id="@+id/idImgUsuario"
+        android:layout_width="44dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="145dp"
+        android:src="@drawable/usuario" />
+
     <TextView
         android:id="@+id/idTVHead"
         android:layout_width="match_parent"
@@ -34,6 +43,17 @@
         android:hint="Enter your email" />
 
     <!--on below line we are creating edit text for password-->
+
+    <ImageView
+        android:id="@+id/idImgCandado"
+        android:layout_width="51dp"
+        android:layout_height="41dp"
+        android:layout_below="@id/idEdtEmail"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/candado" />
+
+
     <EditText
         android:id="@+id/idEdtPassword"
         android:layout_width="match_parent"

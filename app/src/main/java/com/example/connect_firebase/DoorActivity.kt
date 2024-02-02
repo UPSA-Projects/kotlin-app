@@ -84,6 +84,13 @@ class DoorActivity : AppCompatActivity() {
 //            finish()
         }
 
+        findViewById<Button>(R.id.buttonSalir).setOnClickListener {
+            // Puedes crear un Intent para ir a la actividad principal (MainActivity)
+            val intent = Intent(this@DoorActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()  // Cierra la actividad actual
+        }
+
     }
 
     fun toggleDoor(isDoorOpenT : Boolean) {
