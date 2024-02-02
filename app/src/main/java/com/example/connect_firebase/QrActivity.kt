@@ -10,7 +10,12 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.database
 import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentResult
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
 import okhttp3.Request
+import java.io.IOException
 
 class QRScannerActivity : Activity() {
 
@@ -54,11 +59,31 @@ class QRScannerActivity : Activity() {
                 // Procesar el contenido del QR según tus necesidades
                 database.child(contenidoQR).get().addOnSuccessListener {
                     database.child(contenidoQR).setValue(1)
-                    Request.Builder().url("http://192.168.0.177/data=1")
+                    GlobalScope.launch(Dispatchers.IO) {
+                        try {
+
+                            val client = OkHttpClient()
+                            val request = Request.Builder().url("http://192.168.0.177/data=1").build()
+                            client.newCall(request).execute()
+
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
+                    }
 
                     handler.postDelayed({
                         database.child(contenidoQR).setValue(0)
-                        Request.Builder().url("http://192.168.0.177/data=0")
+                        GlobalScope.launch(Dispatchers.IO) {
+                            try {
+
+                                val client = OkHttpClient()
+                                val request = Request.Builder().url("http://192.168.0.177/data=0").build()
+                                client.newCall(request).execute()
+
+                            } catch (e: IOException) {
+                                e.printStackTrace()
+                            }
+                        }
                     }, 3000)
 
                 }.addOnFailureListener {
