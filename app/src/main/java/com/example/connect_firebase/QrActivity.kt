@@ -54,11 +54,11 @@ class QRScannerActivity : Activity() {
                 // Procesar el contenido del QR según tus necesidades
                 database.child(contenidoQR).get().addOnSuccessListener {
                     database.child(contenidoQR).setValue(1)
-                    Request.Builder().url("https://192.168.0.177/data=1")
+                    Request.Builder().url("http://192.168.0.177/data=1")
 
                     handler.postDelayed({
                         database.child(contenidoQR).setValue(0)
-                        Request.Builder().url("https://192.168.0.177/data=0")
+                        Request.Builder().url("http://192.168.0.177/data=0")
                     }, 3000)
 
                 }.addOnFailureListener {
