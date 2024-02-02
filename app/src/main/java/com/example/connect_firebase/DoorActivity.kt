@@ -19,9 +19,6 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
 import com.google.firebase.database.getValue
 import java.util.Objects
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
 
 class DoorActivity : AppCompatActivity() {
 
@@ -75,7 +72,6 @@ class DoorActivity : AppCompatActivity() {
             isDoorOpen = !isDoorOpen
             if (groupId != null) {
                 database.child(groupId).setValue(if (isDoorOpen) 1 else 0)
-                Request.Builder().url("https://192.168.0.177/data=${if (isDoorOpen) 1 else 0}")
             }
         }
 
